@@ -51,10 +51,10 @@ const PurchaseDialog = ({ isOpen, onClose, carDetails }: PurchaseDialogProps) =>
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <Button onClick={handleContinue}>
+          <Button onClick={handleContinue} className="w-full">
             {step === 1 ? "Continue Purchase" : "Sign In"}
           </Button>
-          <Button variant="outline" onClick={onClose}>
+          <Button variant="outline" onClick={onClose} className="w-full">
             Cancel
           </Button>
         </div>

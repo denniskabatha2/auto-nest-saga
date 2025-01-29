@@ -89,7 +89,61 @@ export const CARS_DATA = {
     colors: ["#FFFFFF", "#000000", "#FF0000", "#0000FF", "#808080"],
     description: "The quickest accelerating car in production today."
   },
-  // ... Additional cars 6-15 with similar structure
+  '6': {
+    make: "Lamborghini",
+    model: "Huracán",
+    year: 2023,
+    price: 249990,
+    image: "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a",
+    rating: 4.9,
+    specs: {
+      engine: "5.2L V10",
+      power: "631 hp",
+      acceleration: "2.9s",
+      transmission: "7-speed LDF",
+      capacity: 2,
+      features: ["Carbon Ceramic Brakes", "Lifting System", "Sport Exhaust"]
+    },
+    colors: ["#FF0000", "#000000", "#FFFFFF", "#FFA500", "#00FF00"],
+    description: "Pure Italian performance and design in its most dramatic form."
+  },
+  '7': {
+    make: "McLaren",
+    model: "720S",
+    year: 2023,
+    price: 299990,
+    image: "https://images.unsplash.com/photo-1621135802920-133df287f89c",
+    rating: 4.8,
+    specs: {
+      engine: "4.0L V8 Twin-Turbo",
+      power: "710 hp",
+      acceleration: "2.8s",
+      transmission: "7-speed SSG",
+      capacity: 2,
+      features: ["Variable Drift Control", "Active Dynamics Panel", "Carbon Fiber Monocage"]
+    },
+    colors: ["#FF4500", "#000000", "#FFFFFF", "#4169E1", "#FFD700"],
+    description: "Revolutionary aerodynamics meet breathtaking performance."
+  },
+  '8': {
+    make: "Ferrari",
+    model: "SF90 Stradale",
+    year: 2023,
+    price: 509990,
+    image: "https://images.unsplash.com/photo-1592198084033-aade902d1aae",
+    rating: 4.9,
+    specs: {
+      engine: "4.0L V8 Hybrid",
+      power: "986 hp",
+      acceleration: "2.5s",
+      transmission: "8-speed DCT",
+      capacity: 2,
+      features: ["eManettino", "RAC-e", "All-Wheel Drive"]
+    },
+    colors: ["#FF0000", "#000000", "#FFFFFF", "#FFD700", "#808080"],
+    description: "Ferrari's first plug-in hybrid, representing the pinnacle of engineering."
+  },
+  // Add cars 9-15 with similar structure
 };
 
 export const DEALERS_DATA = [
@@ -115,5 +169,27 @@ export const DEALERS_DATA = [
     description: "Exclusive dealership offering the finest selection of luxury vehicles.",
     image: "https://images.unsplash.com/photo-1549275301-c9d60c273972"
   },
-  // ... Additional dealers 3-10 with similar structure
+  {
+    id: 3,
+    name: "Prestige Auto Gallery",
+    location: "789 Ocean Blvd, San Diego, CA",
+    phone: "(555) 345-6789",
+    email: "sales@prestigeauto.com",
+    website: "www.prestigeautogallery.com",
+    rating: 4.7,
+    description: "Luxury car dealership with a focus on exceptional customer service.",
+    image: "https://images.unsplash.com/photo-1549275301-c9d60c273972"
+  },
+  {
+    id: 4,
+    name: "Premium Motors",
+    location: "321 Lake Dr, Chicago, IL",
+    phone: "(555) 456-7890",
+    email: "info@premiummotors.com",
+    website: "www.premiummotors.com",
+    rating: 4.9,
+    description: "Chicago's premier destination for luxury and exotic vehicles.",
+    image: "https://images.unsplash.com/photo-1562141989-c5c79ac8f576"
+  },
+  // Add dealers 5-10 with similar structure
 ];
