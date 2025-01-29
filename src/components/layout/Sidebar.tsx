@@ -1,10 +1,26 @@
 import { useState } from 'react';
-import { ChevronLeft, ChevronRight, Filter } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Filter, Car, DollarSign, Calendar } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+
+const MAKES = ["Mercedes-Benz", "BMW", "Audi", "Porsche", "Tesla"];
 
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [priceRange, setPriceRange] = useState([20000]);
+  const [yearRange, setYearRange] = useState([2020]);
+  const [selectedMakes, setSelectedMakes] = useState<string[]>([]);
+
+  const handleMakeChange = (make: string) => {
+    setSelectedMakes(prev => {
+      if (prev.includes(make)) {
+        return prev.filter(m => m !== make);
+      }
+      return [...prev, make];
+    });
+  };
 
   return (
     <div
@@ -28,25 +44,65 @@ const Sidebar = () => {
               <Filter size={16} />
               Filters
             </h3>
-            <div className="mt-4 space-y-4">
-              <div>
-                <label className="text-sm text-gray-600">Price Range</label>
+            
+            <div className="mt-6 space-y-6">
+              <div className="space-y-4">
+                <Label className="flex items-center gap-2">
+                  <Car size={16} />
+                  Make
+                </Label>
+                {MAKES.map((make) => (
+                  <div key={make} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={make}
+                      checked={selectedMakes.includes(make)}
+                      onCheckedChange={() => handleMakeChange(make)}
+                    />
+                    <label
+                      htmlFor={make}
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      {make}
+                    </label>
+                  </div>
+                ))}
+              </div>
+
+              <div className="space-y-4">
+                <Label className="flex items-center gap-2">
+                  <DollarSign size={16} />
+                  Price Range
+                </Label>
                 <Slider
                   defaultValue={[20000]}
-                  max={100000}
-                  step={1000}
+                  max={200000}
+                  step={5000}
+                  value={priceRange}
+                  onValueChange={setPriceRange}
                   className="mt-2"
                 />
+                <div className="text-sm text-gray-500">
+                  Up to ${priceRange[0].toLocaleString()}
+                </div>
               </div>
-              <div>
-                <label className="text-sm text-gray-600">Year</label>
+
+              <div className="space-y-4">
+                <Label className="flex items-center gap-2">
+                  <Calendar size={16} />
+                  Year
+                </Label>
                 <Slider
                   defaultValue={[2020]}
                   min={2000}
                   max={2024}
                   step={1}
+                  value={yearRange}
+                  onValueChange={setYearRange}
                   className="mt-2"
                 />
+                <div className="text-sm text-gray-500">
+                  From {yearRange[0]}
+                </div>
               </div>
             </div>
           </div>
