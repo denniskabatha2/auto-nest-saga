@@ -3,73 +3,29 @@ import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Car, Users, Gauge, Fuel } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-
-const CARS_DATA = {
-  '1': {
-    make: "Mercedes-Benz",
-    model: "AMG GT",
-    year: 2023,
-    price: 159990,
-    image: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8",
-    rating: 4.7,
-    specs: {
-      engine: "AMG 4.0L V8 biturbo",
-      power: "503 hp",
-      acceleration: "3.7s",
-      transmission: "AMG SPEEDSHIFT",
-      capacity: 4,
-      features: ["AMG Night Pack", "Panorama Roof", "AMG Body Kit"]
-    },
-    colors: ["#FFFFFF", "#000000", "#0066CC", "#CC0000", "#E5C687"],
-    description: "A variety of exhilarating options are available for your new or pre-owned vehicle from Mercedes-Benz."
-  },
-  '2': {
-    make: "Porsche",
-    model: "911 GT3",
-    year: 2023,
-    price: 169990,
-    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70",
-    rating: 4.9,
-    specs: {
-      engine: "4.0L Flat-6",
-      power: "502 hp",
-      acceleration: "3.2s",
-      transmission: "7-speed PDK",
-      capacity: 2,
-      features: ["Sport Chrono Package", "Porsche Active Suspension Management"]
-    },
-    colors: ["#FF0000", "#FFFFFF", "#000000", "#00FF00", "#0000FF"],
-    description: "The Porsche 911 GT3 is a high-performance sports car that delivers an exhilarating driving experience."
-  },
-  '3': {
-    make: "Tesla",
-    model: "Model S",
-    year: 2023,
-    price: 89990,
-    image: "https://images.unsplash.com/photo-1536700503339-1e4b06520771",
-    rating: 4.8,
-    specs: {
-      engine: "Dual Electric Motors",
-      power: "1020 hp",
-      acceleration: "1.99s",
-      transmission: "Single Speed",
-      capacity: 5,
-      features: ["Autopilot", "Long Range Battery", "Premium Interior"]
-    },
-    colors: ["#FFFFFF", "#000000", "#FF5733", "#C70039", "#900C3F"],
-    description: "The Tesla Model S combines performance, safety, and technology in a luxury electric sedan."
-  }
-};
+import { CARS_DATA } from '@/data/cars';
+import PurchaseDialog from '@/components/purchase/PurchaseDialog';
+import { useToast } from "@/components/ui/use-toast";
 
 const CarDetails = () => {
   const { id } = useParams();
   const [selectedColor, setSelectedColor] = useState(0);
+  const [isPurchaseDialogOpen, setIsPurchaseDialogOpen] = useState(false);
+  const { toast } = useToast();
   
   const car = CARS_DATA[id as keyof typeof CARS_DATA];
   
   if (!car) {
     return <div>Car not found</div>;
   }
+
+  const handleContactDealer = () => {
+    toast({
+      title: "Contact Request Sent",
+      description: "A dealer representative will contact you shortly.",
+      duration: 3000,
+    });
+  };
 
   return (
     <div className="min-h-screen pt-20 px-4 md:px-8">
@@ -82,7 +38,7 @@ const CarDetails = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-6">
             <div>
-              <h1 className="text-4xl font-bold">{car.make}</h1>
+              <h1 className="text-3xl md:text-4xl font-bold">{car.make}</h1>
               <p className="text-gray-500">{car.model} - {car.year}</p>
             </div>
 
@@ -124,7 +80,7 @@ const CarDetails = () => {
           <div className="space-y-6">
             <div className="glass-card p-6 rounded-lg">
               <h3 className="text-xl font-semibold mb-4">Colors</h3>
-              <div className="flex gap-2 mb-6">
+              <div className="flex flex-wrap gap-2 mb-6">
                 {car.colors.map((color, index) => (
                   <button
                     key={color}
@@ -146,11 +102,11 @@ const CarDetails = () => {
                 <div className="text-3xl font-bold mb-4">
                   ${car.price.toLocaleString()}
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <Button size="lg" variant="outline">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <Button size="lg" variant="outline" onClick={handleContactDealer}>
                     Contact Dealer
                   </Button>
-                  <Button size="lg">
+                  <Button size="lg" onClick={() => setIsPurchaseDialogOpen(true)}>
                     Purchase Now
                   </Button>
                 </div>
@@ -159,6 +115,16 @@ const CarDetails = () => {
           </div>
         </div>
       </div>
+
+      <PurchaseDialog
+        isOpen={isPurchaseDialogOpen}
+        onClose={() => setIsPurchaseDialogOpen(false)}
+        carDetails={{
+          make: car.make,
+          model: car.model,
+          price: car.price
+        }}
+      />
     </div>
   );
 };
