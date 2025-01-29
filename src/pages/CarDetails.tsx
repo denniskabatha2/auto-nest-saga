@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Engine, Users, Gauge, Fuel } from 'lucide-react';
+import { ArrowLeft, Car, Users, Gauge, Fuel } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
@@ -103,7 +103,7 @@ const CarDetails = () => {
                   <div className="text-sm text-gray-500">Passenger capacity</div>
                 </Card>
                 <Card className="p-4 text-center">
-                  <Engine className="mx-auto mb-2" />
+                  <Car className="mx-auto mb-2" />
                   <div className="text-sm font-medium">{car.specs.engine}</div>
                   <div className="text-sm text-gray-500">Engine</div>
                 </Card>
